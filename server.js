@@ -1,3 +1,6 @@
+const dns = require("dns");
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
+
 require('dotenv').config();
 const fastify = require("fastify")({ logger: true });
 const fastifyCors = require("@fastify/cors");
@@ -53,21 +56,19 @@ chatRoutes.forEach((route) => fastify.route(route));
 const PORT = process.env.PORT || 4000;
 
 // Running server
-fastify.listen({ port: PORT, host: "0.0.0.0" }, async (err) => {
-  if (err) {
-    console.error(err);
-    process.exit(1);
-  }
-  
+const start = async () => {
   try {
     // Connect to MongoDB
     await connectDB();
-  } catch (error) {
-    console.error('❌ Unable to connect to MongoDB:', error);
+    await fastify.listen({ port: PORT, host: "0.0.0.0" });
+    console.log(`🚀 Server is running on port ${PORT}`);
+  } catch (err) {
+    console.error("❌ Failed to start server:", err);
+    process.exit(1);
   }
+};
 
-  console.log(`🚀 Server is running on port ${PORT}`);
-});
+start();
 
 // Setup Socket.io
 fastify.ready(err => {

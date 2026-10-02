@@ -1,3 +1,4 @@
-const JWT_SECRET = "2bca94b25f5b3121a";
+require("dotenv").config();
+const JWT_SECRET = process.env.JWT_SECRET || "2bca94b25f5b3121a";
 
-module.exports = { JWT_SECRET }
+module.exports = { JWT_SECRET };

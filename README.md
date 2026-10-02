@@ -36,5 +36,28 @@ Saylo-backend/
 ├── routes/
 ├── services/
 ├── uploads/
+├── .env.example
 ├── package.json
 └── server.js
+```
+
+## Environment Variables
+
+Create a `.env` file in the `backend/` directory based on `.env.example`:
+
+```env
+PORT=4000
+NODE_ENV=development
+MONGO_URI=mongodb://127.0.0.1:27017/saylo_db
+COOKIE_SECRET=your_cookie_secret_here
+JWT_SECRET=your_jwt_secret_here
+```
+
+### Configuration Details
+
+- **PORT**: Port the Fastify server listens on (defaults to `4000`).
+- **MONGO_URI**: MongoDB connection URI. Defaults to `mongodb://127.0.0.1:27017/saylo_db` if not provided. When using MongoDB Atlas, remember to URL-encode special characters in the password.
+- **COOKIE_SECRET**: Secret key used by `@fastify/cookie` to sign cookies.
+- **JWT_SECRET**: Secret key used to sign and verify JWT authentication tokens.
+- **NODE_ENV**: Set to `production` in production environments (enables secure cookies).
+
